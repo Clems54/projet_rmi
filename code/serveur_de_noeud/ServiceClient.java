@@ -2,6 +2,10 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
+/**
+ * Interface qui donne les méthodes utilisables à distance entre client
+ * et serveur de noeud et représente le service du client
+ */
 public interface ServiceClient extends Remote{
 
   /**

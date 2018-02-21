@@ -9,10 +9,17 @@ import java.rmi.server.UnicastRemoteObject;
 public class Central {
 
 	public static void main (String[] args) throws RemoteException{
+		// Accès au registre du serveur de noeud (rmiregistry)
+		Registry annuaire = LocateRegistry.getRegistry();
 
-		GestionClient gs = new GestionClient(); // Classe partagé
-		ServiceClient sd = (ServiceClient) UnicastRemoteObject.exportObject(gs,0); // Permet d'exporter la référence de l'instance créé
-		Registry annuaire = LocateRegistry.getRegistry(); // Accès au registre du serveur de noeud
+		// Gestion client
+		GestionClient gc = new GestionClient(); // Classe partagé
+		ServiceClient sd = (ServiceClient) UnicastRemoteObject.exportObject(gc,0); // Permet d'exporter la référence de l'instance créé avec un port donné
 		annuaire.rebind("compter",sd); // Ajout de la référence de l'objet partagé dans l'annuaire rmiregistry
+
+		// Gestion noeud
+		GestionNoeud gn = new GestionNoeud(); // Classe partagé
+		ServiceNoeud sn = (ServiceNoeud) UnicastRemoteObject.exportObject(gn,0); // Permet d'exporter la référence de l'instance créé avec un port donné
+		annuaire.rebind("enregistrer",sn); // Ajout de la référence de l'objet partagé dans l'annuaire rmiregistry
 	}
 }

@@ -8,6 +8,7 @@ import java.io.BufferedReader;
 import java.util.ArrayList;
 import java.io.IOException;
 import java.io.FileNotFoundException;
+import java.rmi.server.ServerNotActiveException;
 
 /**
 * Classe qui doit être lancé par le Client
@@ -15,7 +16,7 @@ import java.io.FileNotFoundException;
 */
 public class Client {
 
-  public static void main(String[] args) throws RemoteException, NotBoundException{
+  public static void main(String[] args) throws RemoteException, NotBoundException, ServerNotActiveException{
 
     // Lecture du dossier pour trouver par la suite un fichier texte
     File dossier = new File("."); // Permet de récuperer tout les fichiers du repertoire client

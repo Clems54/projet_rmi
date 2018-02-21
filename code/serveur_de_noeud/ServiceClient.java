@@ -1,5 +1,6 @@
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.rmi.server.ServerNotActiveException;
 import java.util.ArrayList;
 
 /**
@@ -13,5 +14,5 @@ public interface ServiceClient extends Remote{
    * @param texte fichier avec texte a compter
    * @return nombre de mots present dans le texte donnee en parametre
    */
-  public int compterMots(ArrayList<String> listeLignes) throws RemoteException;
+  public int compterMots(ArrayList<String> listeLignes) throws RemoteException, ServerNotActiveException;
 }

@@ -1,6 +1,6 @@
 import java.rmi.Remote;
 import java.rmi.RemoteException;
-import java.io.File;
+import java.util.ArrayList;
 
 public interface ServiceClient extends Remote{
 

@@ -4,7 +4,8 @@ import java.io.File;
 
 public class GestionClient implements ServiceClient{
 
-  public int compterMots(File texte) throws RemoteException{
-    return -1;
+  public int compterMots(ArrayList<String> listeLignes) throws RemoteException{
+
+
   }
 }

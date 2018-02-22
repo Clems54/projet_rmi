@@ -13,7 +13,7 @@ public class Noeud{
     GestionCalcul calcul = new GestionCalcul();
     ServiceCalcul sc = (ServiceCalcul) UnicastRemoteObject.exportObject(calcul,0);
     try{
-      System.out.println("Enregistrement pour calcul...");
+      System.out.println("En attente de calcul...");
       sn.enregistrerNoeud(sc);
     }catch(Exception e){}
     }

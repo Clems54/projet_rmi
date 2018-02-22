@@ -12,14 +12,14 @@ public class Central {
 		// Accès au registre du serveur de noeud (rmiregistry)
 		Registry annuaire = LocateRegistry.getRegistry();
 
-		// Gestion client
-		GestionClient gc = new GestionClient(); // Classe partagé
-		ServiceClient sd = (ServiceClient) UnicastRemoteObject.exportObject(gc,0); // Permet d'exporter la référence de l'instance créé avec un port donné
-		annuaire.rebind("compter",sd); // Ajout de la référence de l'objet partagé dans l'annuaire rmiregistry
-
 		// Gestion noeud
 		GestionNoeud gn = new GestionNoeud(); // Classe partagé
 		ServiceNoeud sn = (ServiceNoeud) UnicastRemoteObject.exportObject(gn,0); // Permet d'exporter la référence de l'instance créé avec un port donné
 		annuaire.rebind("enregistrer",sn); // Ajout de la référence de l'objet partagé dans l'annuaire rmiregistry
+
+		// Gestion client
+		GestionClient gc = new GestionClient(gn); // Classe partagé
+		ServiceClient sc = (ServiceClient) UnicastRemoteObject.exportObject(gc,0); // Permet d'exporter la référence de l'instance créé avec un port donné
+		annuaire.rebind("compter",sc); // Ajout de la référence de l'objet partagé dans l'annuaire rmiregistry
 	}
 }

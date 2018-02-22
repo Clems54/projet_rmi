@@ -16,7 +16,7 @@ import java.rmi.server.ServerNotActiveException;
 */
 public class Client {
 
-  public static void main(String[] args) throws RemoteException, NotBoundException, ServerNotActiveException{
+  public static void main(String[] args) throws RemoteException, NotBoundException, ServerNotActiveException, InterruptedException{
 
     // Lecture du dossier pour trouver par la suite un fichier texte
     File dossier = new File("."); // Permet de récuperer tout les fichiers du repertoire client
@@ -25,7 +25,7 @@ public class Client {
       // Conditionnelle qui verifie si l'élément trouvé est un fichier et si le nom se termine par .txt
       if(f.getName().substring(f.getName().length()-4,f.getName().length()).equals(".txt") && f.isFile()){
         texte = f;
-        System.out.println("Le fichier texte \""+texte.getName()+"\" a bien ete trouve.\nTraitement en cours...");
+        System.out.println("Le fichier texte \""+texte.getName()+"\" a bien ete trouve.\nCalcul en cours...");
         break; // Sort de la boucle for quand fichier texte trouvé
       }
     }
@@ -48,8 +48,8 @@ public class Client {
           // Récupération objet distant
           Registry reg = LocateRegistry.getRegistry("localhost",1099); // Adresse a changer en fonction de l'ip du serveur de noeud
           ServiceClient sc = (ServiceClient) reg.lookup("compter");
-          sc.compterMots(listeLignes); // Appel de la méthode distante
-
+          System.out.println("Le texte contient "+sc.compterMots(listeLignes)+" mots."); // Appel de la méthode distante
+          System.out.println("Fin du calcul.");
 
         }else{
           // Gestion du cas où aucun fichier n'a été trouvé

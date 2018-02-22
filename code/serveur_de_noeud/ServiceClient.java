@@ -14,5 +14,5 @@ public interface ServiceClient extends Remote{
    * @param texte fichier avec texte a compter
    * @return nombre de mots present dans le texte donnee en parametre
    */
-  public int compterMots(ArrayList<String> listeLignes) throws RemoteException, ServerNotActiveException;
+  public int compterMots(ArrayList<String> listeLignes) throws RemoteException, ServerNotActiveException, InterruptedException;
 }

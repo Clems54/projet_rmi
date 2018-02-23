@@ -30,15 +30,14 @@ public class GestionClient implements ServiceClient{
     Iterator iterateurLigne = listeLignes.iterator();
     while(!fini){
       if(iterateurLigne.hasNext()){
-        if(this.listeNoeuds.noeudsCalcul.size() != 0)
+        Thread.sleep(500);
+        if(this.listeNoeuds.noeudsCalcul.size() != 0){
           nbMots += this.listeNoeuds.noeudsCalcul.get(0).calculer((String)iterateurLigne.next());
-        else
-          Thread.sleep(500);
-      }
-      else{
+        }
+      }else{
         fini = true;
-      }
     }
+  }
     System.out.println("Fin du traitement.");
     return nbMots;
   }

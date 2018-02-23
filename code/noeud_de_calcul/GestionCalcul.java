@@ -3,6 +3,9 @@ import java.rmi.RemoteException;
 
 public class GestionCalcul implements ServiceCalcul{
 
+  public String ligneCourante;
+  public int nbMotsCourant;
+
   public int calculer(String ligne) throws RemoteException{
     System.out.println("Comptage du nombre de mot dans: \""+ligne+"\".");
     System.out.println("--> "+ligne.split(" ").length+" mots.");

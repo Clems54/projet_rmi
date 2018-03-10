@@ -3,18 +3,29 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.rmi.server.ServerNotActiveException;
 
 public class Noeud{
 
-  public static void main(String[] args) throws RemoteException, NotBoundException{
-    Registry reg = LocateRegistry.getRegistry("localhost",1099);
-    ServiceNoeud sn = (ServiceNoeud) reg.lookup("enregistrer");
+  public static void main(String[] args){
 
-    GestionCalcul calcul = new GestionCalcul();
-    ServiceCalcul sc = (ServiceCalcul) UnicastRemoteObject.exportObject(calcul,0);
     try{
-      System.out.println("En attente de calcul...");
+      Registry reg = LocateRegistry.getRegistry("localhost",1099);
+      ServiceNoeud sn = (ServiceNoeud) reg.lookup("enregistrer");
+
+      GestionCalcul calcul = new GestionCalcul();
+      ServiceCalcul sc = (ServiceCalcul) UnicastRemoteObject.exportObject(calcul,0);
       sn.enregistrerNoeud(sc);
-    }catch(Exception e){}
+      System.out.println("En attente de calcul...");
+    }
+    catch(NotBoundException e){
+      System.out.println("Serveur introuvable!\nArret du programme.");
+    }
+    catch(RemoteException e){
+      System.out.println("Serveur deconnecte\nArret du programme.");
+    }
+    catch(ServerNotActiveException e){
+      System.out.println("Recuperation du serveur impossible!\nArret du programme.");
     }
   }
+}

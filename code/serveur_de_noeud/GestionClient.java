@@ -44,6 +44,8 @@ public class GestionClient implements ServiceClient{
     Iterator<ServiceCalcul> noeudDeCalcul = this.listeNoeuds.noeudsCalcul.iterator(); // Itérateur représentant les noeuds de calcul disponible
     Iterator<String> iterateurLigne = listeLignes.iterator(); // Itérateur pour le parcourt de ligne du texte à compter
     ServiceCalcul noeudCourant; // Recuperation du noeud a utiliser
+    boolean estCalcule = true;
+    String ligne = "";
 
     // Boucle pour le comptage de mots
     while(!fini){
@@ -56,13 +58,30 @@ public class GestionClient implements ServiceClient{
 
         // Parcourt des noeuds de calculs pour le partage
         if(noeudDeCalcul.hasNext()){
-          // Obligation de faire cela pour eviter l'acces concurrent a la liste
+          // Gestion des exceptions
           try{
             Thread.sleep(500);
             noeudCourant = noeudDeCalcul.next();
-            nbMots += noeudCourant.calculer(iterateurLigne.next());
-          }catch(ConcurrentModificationException e){
+
+            // Permet de verifier si le noeud a bien envoye la reponse
+            if(estCalcule)
+              ligne = iterateurLigne.next();
+
+            // Gestion du traitement pour la deco d'un noeud
+            nbMots += noeudCourant.calculer(ligne);
+            estCalcule = true;
+          }
+          // Gestion de la modif de la liste de noeud
+          catch(ConcurrentModificationException e){
             noeudDeCalcul = this.listeNoeuds.noeudsCalcul.iterator(); // Raffraichissement de la liste des noeuds après co d'un nouveau
+            System.out.println("Modification de la liste de noeuds!");
+          }
+          // Gestion de la deco d'un noeud
+          catch(RemoteException e){
+            noeudDeCalcul.remove();
+            noeudDeCalcul = this.listeNoeuds.noeudsCalcul.iterator();
+            estCalcule = false;
+            System.out.println("Un noeud de calcul vient de se deconnecter!");
           }
 
         }else

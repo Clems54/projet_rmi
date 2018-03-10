@@ -8,8 +8,5 @@ import java.rmi.server.ServerNotActiveException;
  */
 public interface ServiceNoeud extends Remote{
 
-  /**
-   *
-   */
   public void enregistrerNoeud(ServiceCalcul noeudCalcul) throws RemoteException, ServerNotActiveException;
 }

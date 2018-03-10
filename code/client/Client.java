@@ -45,10 +45,25 @@ public class Client {
         }catch(IOException e){}
         }catch(FileNotFoundException e){}
 
-          // Récupération objet distant
-          Registry reg = LocateRegistry.getRegistry("localhost",1099); // Adresse a changer en fonction de l'ip du serveur de noeud
+
+        // Utilisation : java ClientCalcul [hôte] [port]
+        // Valeurs par défaut : hôte = "localhost", port = 1099
+        // adresse & port du serveur de calcul par défaut
+        String serveur="localhost";
+        int port=1099;
+
+        // Si adresse fournie en ligne de commande
+        if( args.length > 0 )
+          serveur=args[0];
+          if( args.length > 1 )
+          port=Integer.parseInt(args[1]);
+
+          // récupérer l'annuaire sur serveur et port
+          Registry reg = LocateRegistry.getRegistry(serveur, port);
+
+          // Appel de la méthode distante
           ServiceClient sc = (ServiceClient) reg.lookup("compter");
-          System.out.println("Le texte contient "+sc.compterMots(listeLignes)+" mots."); // Appel de la méthode distante
+          System.out.println("Le texte contient "+sc.compterMots(listeLignes)+" mots.");
           System.out.println("Fin du calcul.");
 
         }else{

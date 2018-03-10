@@ -7,9 +7,5 @@ import java.rmi.RemoteException;
  */
 public interface ServiceCalcul extends Remote{
 
-  /**
-   * Methode qui permet au noeud de calcul d'aider au comptage du texte
-   * @param noeud_de_calcul le noeud de calcul qui souhaite aider au comptage du texte
-   */
   public int calculer(String ligne) throws RemoteException;
 }

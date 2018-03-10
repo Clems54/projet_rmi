@@ -9,10 +9,15 @@ import java.util.ArrayList;
  */
 public class GestionNoeud implements ServiceNoeud{
 
+  // Liste des noeuds disponible pour le calcul
   public ArrayList<ServiceCalcul> noeudsCalcul = new ArrayList<ServiceCalcul>();
 
+  /**
+   * Methode qui permet d'enregistrer un noeud sur le serveur
+   * @param noeudCalcul represente le noeud a ajouter
+   */
   public void enregistrerNoeud(ServiceCalcul noeudCalcul) throws RemoteException, ServerNotActiveException{
     noeudsCalcul.add(noeudCalcul);
-    System.out.println("Nouveau noeud a l'adresse "+RemoteServer.getClientHost());
+    System.out.println("Nouveau noeud a l'adresse "+RemoteServer.getClientHost()); // Affichage de la connexion d'un noeud dans la console
   }
 }
